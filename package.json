@@ -1,6 +1,6 @@
 {
-  "name": "core-node",
-  "version": "0.0.1",
+  "name": "starkcore",
+  "version": "0.0.2",
   "description": "Basic SDK functionalities for the starkbank and starkinfra SDKs",
   "main": "index.js",
   "directories": {

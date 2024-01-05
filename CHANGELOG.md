@@ -12,5 +12,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - PATCH version when backwards compatible bug **fixes** are implemented.
 
 ## [Unreleased]
+
+## [0.0.2] - 2024-01-05
 ### Added
-- starkcore API basic functionalities for starkbank and starkinfra 
+- starkcore API basic functionalities for starkbank and starkinfra
