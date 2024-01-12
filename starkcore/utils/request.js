@@ -3,7 +3,7 @@ const Check = require('./check.js');
 const error = require('../error.js');
 const StarkHost = require('./host.js');
 const axios = require('axios').default;
-const stark = require('../../../../index'); 
+const stark = require('../../index'); 
 const Ecdsa = require('starkbank-ecdsa').Ecdsa;
 
 
