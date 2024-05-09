@@ -11,7 +11,7 @@ exports.exampleProject = new stark.Project(
     }
 );
 
-exports.exampleOrganization = new starkinfra.Organization(
+exports.exampleOrganization = new stark.Organization(
     {
         environment: 'sandbox',
         id: process.env.SANDBOX_ORGANIZATION_ID, // '5656565656565656',
