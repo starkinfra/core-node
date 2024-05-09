@@ -277,8 +277,7 @@ exports.getRaw = async function (sdkVersion, host, apiVersion, path, user, langu
         timeout
     );
     let json = response.json();
-    returnEntity = json[api.lastName(resource['name'])];
-    return Object.assign(new resource['class'](returnEntity), returnEntity);
+    return json;
 };
 
 exports.postRaw = async function (sdkVersion, host, apiVersion, resource, payload, user, language, timeout, query) {
@@ -295,6 +294,5 @@ exports.postRaw = async function (sdkVersion, host, apiVersion, resource, payloa
         timeout
     );
     let json = response.json();
-    returnEntity = json[api.lastName(resource['name'])];
-    return Object.assign(new resource['class'](returnEntity), returnEntity);
+    return json;
 };

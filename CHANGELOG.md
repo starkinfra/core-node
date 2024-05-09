@@ -12,8 +12,10 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - PATCH version when backwards compatible bug **fixes** are implemented.
 
 ## [Unreleased]
+### Fixed
+- postRaw and getRaw return
 
-## [0.0.4] - 2024-02-20-
+## [0.0.4] - 2024-02-20
 ### Fixed 
 - null parameters to deleteId resource
 
