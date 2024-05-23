@@ -3,8 +3,8 @@ const fetch = require('./request.js').fetch;
 const { fetchBuffer } = require('./request.js');
 
 exports.getPage = async function (sdkVersion, host, apiVersion, resource, user = null, language, timeout, query = []) {
-    response = await fetch(
-        host, 
+    let response = await fetch(
+        host,
         sdkVersion,
         user,
         'GET',
@@ -30,7 +30,7 @@ exports.getList = async function* (sdkVersion, host, apiVersion, resource, user 
     let list;
     let cursor = '';
     let names = api.lastNamePlural(resource['name']);
-    limit = query['limit'] ? query['limit'] : null;
+    let limit = query['limit'] ? query['limit'] : null;
     do {
         if (!query) {
             query = {};
@@ -45,7 +45,7 @@ exports.getList = async function* (sdkVersion, host, apiVersion, resource, user 
             'limit': Math.min(100, limit),
             'cursor': cursor,
         });
-        response = await fetch(
+        let response = await fetch(
             host,
             sdkVersion,
             user,
@@ -70,7 +70,7 @@ exports.getList = async function* (sdkVersion, host, apiVersion, resource, user 
 };
 
 exports.getId = async function (sdkVersion, host, apiVersion, user = null, resource, id, language, timeout, query  = []) {
-    response = await fetch(
+    let response = await fetch(
         host,
         sdkVersion,
         user,
@@ -83,12 +83,12 @@ exports.getId = async function (sdkVersion, host, apiVersion, user = null, resou
         timeout
     );
     let json = response.json();
-    returnEntity = json[api.lastName(resource['name'])];
+    let returnEntity = json[api.lastName(resource['name'])];
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };
 
 exports.getContent = async function (sdkVersion, host, apiVersion, user, resource, id, subResource, language, timeout, query = []){
-    response = await fetchBuffer(
+    let response = await fetchBuffer(
         host,
         sdkVersion,
         user,
@@ -106,7 +106,7 @@ exports.getContent = async function (sdkVersion, host, apiVersion, user, resourc
 exports.getSubResource = async function (sdkVersion, host, apiVersion, user = null, resource, id, subResource, language, timeout) {
     let endpoint = `${api.endpoint(resource['name'])}`
     let subResourceEndpoint = `${api.endpoint(subResource['name'])}`
-    response = await fetch(
+    let response = await fetch(
         host,
         sdkVersion,
         user,
@@ -124,7 +124,7 @@ exports.getSubResource = async function (sdkVersion, host, apiVersion, user = nu
 };
 
 exports.getPublicKey = async function (sdkVersion, host, apiVersion, user, language, timeout) {
-    response = await fetch(
+    let response = await fetch(
         host,
         sdkVersion,
         user,
@@ -133,7 +133,7 @@ exports.getPublicKey = async function (sdkVersion, host, apiVersion, user, langu
         null,
         {'limit': 1},
         apiVersion,
-        language, 
+        language,
         timeout
     );
     let json = response.json();
@@ -147,7 +147,7 @@ exports.post = async function (sdkVersion, host, apiVersion, user, resource, ent
     }
     let payload = {};
     payload[names] = entities;
-    response = await fetch(
+    let response = await fetch(
         host,
         sdkVersion,
         user,
@@ -170,7 +170,7 @@ exports.post = async function (sdkVersion, host, apiVersion, user, resource, ent
 }
 
 exports.postMulti = async function (sdkVersion, host, apiVersion, user, resource, entities, language, timeout, query) {
-    response = await fetch(
+    let response = await fetch(
         host,
         sdkVersion,
         user,
@@ -192,7 +192,7 @@ exports.postMulti = async function (sdkVersion, host, apiVersion, user, resource
 exports.postSingle = async function (sdkVersion, host, apiVersion, user, resource, language, timeout, query) {
     let payload = Object.assign(new resource['class']({}), query);
     api.removeNullKeys(payload);
-    response = await fetch(
+    let  response = await fetch(
         host,
         sdkVersion,
         user,
@@ -205,12 +205,12 @@ exports.postSingle = async function (sdkVersion, host, apiVersion, user, resourc
         timeout
     );
     let json = response.json();
-    returnEntity = json[api.lastName(resource['name'])];
+    let returnEntity = json[api.lastName(resource['name'])];
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };
 
 exports.postSubResource = async function (sdkVersion, host, apiVersion, user, id, subResource, resource, payload, language, timeout) {
-    response = await fetch(
+    let response = await fetch(
         host,
         sdkVersion,
         user,
@@ -222,12 +222,12 @@ exports.postSubResource = async function (sdkVersion, host, apiVersion, user, id
         timeout
     )
     let json = response.json();
-    returnEntity = json[api.lastName(subResource)];
+    let returnEntity = json[api.lastName(subResource)];
     return Object.assign(new subResource['class'](returnEntity), returnEntity);
 };
 
 exports.deleteId = async function (sdkVersion, host, apiVersion, user, resource, id, language, timeout, query) {
-    response = await fetch(
+    let response = await fetch(
         host,
         sdkVersion,
         user,
@@ -241,13 +241,13 @@ exports.deleteId = async function (sdkVersion, host, apiVersion, user, resource,
         timeout
     );
     let json = response.json();
-    returnEntity = json[api.lastName(resource['name'])];
+    let returnEntity = json[api.lastName(resource['name'])];
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };
 
 exports.patchId = async function (sdkVersion, host, apiVersion, user, resource, id, payload, language, timeout) {
     api.removeNullKeys(payload);
-    response = await fetch(
+    let response = await fetch(
         host,
         sdkVersion,
         user,
@@ -260,12 +260,12 @@ exports.patchId = async function (sdkVersion, host, apiVersion, user, resource, 
         timeout
     )
     let json = response.json();
-    returnEntity = json[api.lastName(resource['name'])];
+    let returnEntity = json[api.lastName(resource['name'])];
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };
 
 exports.getRaw = async function (sdkVersion, host, apiVersion, path, user, language, timeout, query) {
-    response = await fetch(
+    let response = await fetch(
         host,
         sdkVersion,
         user,
@@ -281,8 +281,8 @@ exports.getRaw = async function (sdkVersion, host, apiVersion, path, user, langu
 };
 
 exports.postRaw = async function (sdkVersion, host, apiVersion, resource, payload, user, language, timeout, query) {
-    response =  await fetch(
-        host, 
+    let response =  await fetch(
+        host,
         sdkVersion,
         user,
         "POST",

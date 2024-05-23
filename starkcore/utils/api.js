@@ -15,12 +15,12 @@ exports.fromApiJson = function(resource, json){
 };
 
 exports.castJsonToApiFormat = function (json, resourceName) {
-    clean = [];
+    let clean = [];
     if (json === null) {
         return clean;
     }
     for(const key in json) {
-        const value = json[key];
+        let value = json[key];
         if (value === null) {
             continue;
         }
@@ -37,10 +37,10 @@ exports.castJsonToApiFormat = function (json, resourceName) {
             clean[key] = api.castJsonToApiFormat(value, resourceName)
         }
         clean[key] = value;
-        
+
         return clean;
     }
-}; 
+};
 
 exports.endpoint = function (resource, keepDash = false) {
     let decamelized = decamelize(resource);
@@ -57,7 +57,7 @@ exports.lastName = function (resource) {
 };
 
 exports.lastNamePlural = function (resource) {
-    lastName = exports.lastName(resource);
+    let lastName = exports.lastName(resource);
     if (lastName.endsWith('s')) {
         return lastName;
     }
