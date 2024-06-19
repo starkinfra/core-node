@@ -9,9 +9,10 @@ const Ecdsa = require('starkbank-ecdsa').Ecdsa;
 
 class Response {
 
-    constructor(status, content) {
+    constructor(status, content, headers) {
         this.status = status;
         this.content = content;
+        this.headers = headers
     }
 
     json() {
@@ -19,7 +20,7 @@ class Response {
     }
 }
 
-function preProcess(host, sdkVersion, user, method, path, payload, query, version, language) {
+function preProcess(host, sdkVersion, user, method, path, payload, query, version, language, prefix) {
     user = user || stark.user;
     language  = Check.language(stark.language);
     if(!user) {
@@ -49,10 +50,12 @@ function preProcess(host, sdkVersion, user, method, path, payload, query, versio
         body = JSON.stringify(payload);
         options['data'] = body;
     }
-
+    
+    prefix = prefix? prefix + "-" : ""
+    
     options['headers'] = {
         'Access-Time': accessTime,
-        'User-Agent': 'Node-' + process.versions['node'] + '-SDK-' + service + '-' + sdkVersion,
+        'User-Agent': prefix + 'Node-' + process.versions['node'] + '-SDK-' + service + '-' + sdkVersion,
         'Content-Type': 'application/json',
         'Accept-Language': language
     };
@@ -63,8 +66,8 @@ function preProcess(host, sdkVersion, user, method, path, payload, query, versio
     return options
 }
 
-exports.fetch = async function(host, sdkVersion, user, method, path, payload = null, query = null, apiVersion = 'v2', language = 'en-US', timeout = 15) {
-    let options = preProcess(host, sdkVersion, user, method, path, payload, query, apiVersion, language);
+exports.fetch = async function(host, sdkVersion, user, method, path, payload = null, query = null, apiVersion = 'v2', language = 'en-US', timeout = 15, prefix = "") {
+    let options = preProcess(host, sdkVersion, user, method, path, payload, query, apiVersion, language, prefix);
     let response;
     let content;
     let status;
@@ -74,22 +77,27 @@ exports.fetch = async function(host, sdkVersion, user, method, path, payload = n
         status = response.status;
     } catch (e){
         if (!e.response){
-            throw e;
+            if(prefix != "Joker")
+                throw e;
+            return Response(500, e.code)
         }
         response = await e.response;
         content = response.data;
         status = response.status;
-        switch (status) {
-            case 400:
-            case 404:
-                throw new error.InputErrors(content, status);
-            case 500:
-                throw new error.InternalServerError(content, status);
-            default:
-                throw e;
+        if(prefix != "Joker"){
+            switch (status) {
+                case 400:
+                case 404:
+                    throw new error.InputErrors(content, status);
+                case 500:
+                    throw new error.InternalServerError(content, status);
+                default:
+                    throw e;
+            }
         }
+    } finally {
+        return new Response(status, content);
     }
-    return new Response(status, content);
 };
 
 function authenticationHeaders(user, body, accessTime, payload, method) {
