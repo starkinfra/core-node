@@ -264,35 +264,82 @@ exports.patchId = async function (sdkVersion, host, apiVersion, user, resource, 
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };
 
-exports.getRaw = async function (sdkVersion, host, apiVersion, path, user, language, timeout, query) {
-    response = await fetch(
-        host,
+exports.getRaw = async function (sdkVersion, host, apiVersion, path, user, language, timeout, query, prefix) {
+    return await fetch(
+        host, 
         sdkVersion,
         user,
         "GET",
         path,
+        null,
         query,
         apiVersion,
         language,
-        timeout
+        timeout,
+        prefix
     );
-    let json = response.json();
-    return json;
 };
 
-exports.postRaw = async function (sdkVersion, host, apiVersion, resource, payload, user, language, timeout, query) {
-    response =  await fetch(
+exports.postRaw = async function (sdkVersion, host, apiVersion, path, payload, user, language, timeout, query, prefix) {
+    return await fetch(
         host, 
         sdkVersion,
         user,
         "POST",
-        resource,
+        path,
         payload,
         query,
         apiVersion,
         language,
-        timeout
+        timeout,
+        prefix
     );
-    let json = response.json();
-    return json;
+};
+
+exports.patchRaw = async function (sdkVersion, host, apiVersion, path, payload, user, language, timeout, query, prefix) {
+    return await fetch(
+        host, 
+        sdkVersion,
+        user,
+        "PATCH",
+        path,
+        payload,
+        query,
+        apiVersion,
+        language,
+        timeout,
+        prefix
+    );
+};
+
+exports.putRaw = async function (sdkVersion, host, apiVersion, path, payload, user, language, timeout, query, prefix) {
+    return await fetch(
+        host, 
+        sdkVersion,
+        user,
+        "PUT",
+        path,
+        payload,
+        query,
+        apiVersion,
+        language,
+        timeout,
+        prefix
+    );
+};
+
+exports.deleteRaw = async function (sdkVersion, host, apiVersion, path, payload, user, language, timeout, query, prefix) {
+    return await fetch(
+        host, 
+        sdkVersion,
+        user,
+        "DELETE",
+        path,
+        payload,
+        query,
+        apiVersion,
+        language,
+        timeout,
+        prefix
+    );
 };
