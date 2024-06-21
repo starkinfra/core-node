@@ -264,7 +264,7 @@ exports.patchId = async function (sdkVersion, host, apiVersion, user, resource, 
     return Object.assign(new resource['class'](returnEntity), returnEntity);
 };
 
-exports.getRaw = async function (sdkVersion, host, apiVersion, path, user, language, timeout, query, prefix) {
+exports.getRaw = async function (sdkVersion, host, apiVersion, path, user, language, timeout, query, prefix, throwError = true) {
     return await fetch(
         host, 
         sdkVersion,
@@ -276,11 +276,12 @@ exports.getRaw = async function (sdkVersion, host, apiVersion, path, user, langu
         apiVersion,
         language,
         timeout,
-        prefix
+        prefix,
+        throwError
     );
 };
 
-exports.postRaw = async function (sdkVersion, host, apiVersion, path, payload, user, language, timeout, query, prefix) {
+exports.postRaw = async function (sdkVersion, host, apiVersion, path, payload, user, language, timeout, query, prefix, throwError = true) {
     return await fetch(
         host, 
         sdkVersion,
@@ -292,11 +293,12 @@ exports.postRaw = async function (sdkVersion, host, apiVersion, path, payload, u
         apiVersion,
         language,
         timeout,
-        prefix
+        prefix,
+        throwError
     );
 };
 
-exports.patchRaw = async function (sdkVersion, host, apiVersion, path, payload, user, language, timeout, query, prefix) {
+exports.patchRaw = async function (sdkVersion, host, apiVersion, path, payload, user, language, timeout, query, prefix, throwError = true) {
     return await fetch(
         host, 
         sdkVersion,
@@ -308,11 +310,12 @@ exports.patchRaw = async function (sdkVersion, host, apiVersion, path, payload, 
         apiVersion,
         language,
         timeout,
-        prefix
+        prefix,
+        throwError
     );
 };
 
-exports.putRaw = async function (sdkVersion, host, apiVersion, path, payload, user, language, timeout, query, prefix) {
+exports.putRaw = async function (sdkVersion, host, apiVersion, path, payload, user, language, timeout, query, prefix, throwError = true) {
     return await fetch(
         host, 
         sdkVersion,
@@ -324,11 +327,12 @@ exports.putRaw = async function (sdkVersion, host, apiVersion, path, payload, us
         apiVersion,
         language,
         timeout,
-        prefix
+        prefix,
+        throwError
     );
 };
 
-exports.deleteRaw = async function (sdkVersion, host, apiVersion, path, payload, user, language, timeout, query, prefix) {
+exports.deleteRaw = async function (sdkVersion, host, apiVersion, path, payload, user, language, timeout, query, prefix, throwError = true) {
     return await fetch(
         host, 
         sdkVersion,
@@ -340,6 +344,7 @@ exports.deleteRaw = async function (sdkVersion, host, apiVersion, path, payload,
         apiVersion,
         language,
         timeout,
-        prefix
+        prefix,
+        throwError
     );
 };
