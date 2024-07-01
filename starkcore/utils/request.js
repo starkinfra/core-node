@@ -66,7 +66,7 @@ function preProcess(host, sdkVersion, user, method, path, payload, query, versio
     return options
 }
 
-exports.fetch = async function(host, sdkVersion, user, method, path, payload = null, query = null, apiVersion = 'v2', language = 'en-US', timeout = 15, prefix = "") {
+exports.fetch = async function(host, sdkVersion, user, method, path, payload = null, query = null, apiVersion = 'v2', language = 'en-US', timeout = 15, prefix = "", throwError = true) {
     let options = preProcess(host, sdkVersion, user, method, path, payload, query, apiVersion, language, prefix);
     let response;
     let content;
@@ -77,20 +77,17 @@ exports.fetch = async function(host, sdkVersion, user, method, path, payload = n
         status = response.status;
     } catch (e){
         if (!e.response){
-            if(prefix != "Joker")
-                throw e;
-            return Response(500, e.code)
+            throw e;
         }
         response = await e.response;
         content = response.data;
         status = response.status;
-        if(prefix != "Joker"){
+        if(throwError != False){
             switch (status) {
-                case 400:
-                case 404:
-                    throw new error.InputErrors(content, status);
                 case 500:
                     throw new error.InternalServerError(content, status);
+                case 400:
+                    throw new error.InputErrors(content, status);
                 default:
                     throw e;
             }
