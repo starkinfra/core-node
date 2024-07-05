@@ -12,6 +12,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - PATCH version when backwards compatible bug **fixes** are implemented.
 
 ## [Unreleased]
+### Fixed
+- fetch deleteId parameter
 
 ## [0.1.0] - 2024-07-01
 ### Changed
