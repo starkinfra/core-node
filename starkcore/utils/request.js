@@ -82,7 +82,7 @@ exports.fetch = async function(host, sdkVersion, user, method, path, payload = n
         response = await e.response;
         content = response.data;
         status = response.status;
-        if(throwError != False){
+        if(throwError != false){
             switch (status) {
                 case 500:
                     throw new error.InternalServerError(content, status);
@@ -92,9 +92,8 @@ exports.fetch = async function(host, sdkVersion, user, method, path, payload = n
                     throw e;
             }
         }
-    } finally {
-        return new Response(status, content);
     }
+    return new Response(status, content);
 };
 
 function authenticationHeaders(user, body, accessTime, payload, method) {
