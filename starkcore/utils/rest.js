@@ -217,12 +217,13 @@ exports.postSubResource = async function (sdkVersion, host, apiVersion, user, id
         'POST',
         api.endpoint(resource['name']) + "/" + id + "/" + api.endpoint(subResource['name']),
         payload,
+        null,
         apiVersion,
         language,
         timeout
     )
     let json = response.json();
-    returnEntity = json[api.lastName(subResource)];
+    returnEntity = json[api.lastName(subResource['name'])];
     return Object.assign(new subResource['class'](returnEntity), returnEntity);
 };
 
