@@ -22,7 +22,7 @@ class Response {
 
 function preProcess(host, sdkVersion, user, method, path, payload, query, version, language, prefix) {
     user = user || stark.user;
-    language  = Check.language(stark.language);
+    language  = Check.language(language);
     if(!user) {
         throw Error('A user is required to access our API. Check our docs :https://starkbank.com/docs/api#authentication');
     }
