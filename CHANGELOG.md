@@ -12,6 +12,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - PATCH version when backwards compatible bug **fixes** are implemented.
 
 ## [Unreleased]
+
+## [0.1.5] - 2025-08-27
 ### Removed
 - castJsonToApiFormat function
 
