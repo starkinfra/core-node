@@ -14,34 +14,6 @@ exports.fromApiJson = function(resource, json){
     return resource(json);
 };
 
-exports.castJsonToApiFormat = function (json, resourceName) {
-    clean = [];
-    if (json === null) {
-        return clean;
-    }
-    for(const key in json) {
-        const value = json[key];
-        if (value === null) {
-            continue;
-        }
-        if (typeof value === 'string') {
-            value = utf8.encode(value);
-            clean[key] = utf8.encode(value);
-            continue;
-        }
-        if (value instanceof Date) {
-            clean[key] = api.convertDateInterval(value);
-            continue;
-        }
-        if (Array.isArray(value)) {
-            clean[key] = api.castJsonToApiFormat(value, resourceName)
-        }
-        clean[key] = value;
-        
-        return clean;
-    }
-}; 
-
 exports.endpoint = function (resource, keepDash = false) {
     let decamelized = decamelize(resource);
     if (keepDash) {
