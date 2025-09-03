@@ -132,7 +132,7 @@ exports.fetchBuffer = async function (host, sdkVersion, user, method, path, payl
             case 404:
                 throw new error.InputErrors(JSON.parse(content.toString()), status);
             case 500:
-                throw new error.InputErrors(content.toString(), status);
+                throw new error.InternalServerError(content.toString(), status);
             default:
                 throw e;
         }
