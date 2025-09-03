@@ -12,6 +12,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - PATCH version when backwards compatible bug **fixes** are implemented.
 
 ## [Unreleased]
+
+## [0.1.6] - 2025-09-03
 ### Fixed
 - Fixed error type for Internal Server Error
 
