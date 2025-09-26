@@ -23,11 +23,23 @@ class Invoice extends Resource{
     }
 }
 
-class Webhook extends Resource{
-    constructor({url, subscriptions, id=None}){
+class Webhook extends Resource {
+    constructor({url, subscriptions, id = null}){
         super(id);
         this.url = url;
         this.subscriptions = subscriptions;
+    }
+}
+
+class SplitProfile extends Resource {
+    constructor({interval = null, delay = null, tags = null, id = null, status = null, created = null, updated = null}) {
+        super(id);
+        this.interval = interval;
+        this.delay = delay;
+        this.tags = tags;
+        this.status = status;
+        this.created = created;
+        this.updated = updated;
     }
 }
 
@@ -268,6 +280,30 @@ describe('TestPut', function(){
         assert(result["content"]["profiles"][0]["delay"] == 0)
     })
 })
+
+describe('TestPutMulti', function() {
+    this.timeout(10000);
+    it('test_success', async () => {
+        data = [{
+            interval: "week",
+            delay: 2
+        }];
+        let profiles = await rest.putMulti(
+            '2.13.0',
+            host.bank,
+            'v2',
+            user.exampleProject,
+            resource = {'class': SplitProfile, 'name': 'SplitProfile'},
+            data,
+            'pt-BR',
+            2000,
+            null
+        );
+
+        assert(profiles[0].delay == 2);
+        assert(profiles[0].interval == "week");
+    })
+});
 
 describe('TestDelete', function(){
     this.timeout(10000); 
