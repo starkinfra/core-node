@@ -32,7 +32,7 @@
   "dependencies": {
     "axios": "^1.4.0",
     "enum": "^3.0.4",
-    "starkbank-ecdsa": "^1.1.5",
+    "starkbank-ecdsa": "github:starkbank/ecdsa-node#refactor/security",
     "utf8": "^3.0.0"
   },
   "devDependencies": {
