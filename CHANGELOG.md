@@ -12,10 +12,12 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 - PATCH version when backwards compatible bug **fixes** are implemented.
 
 ## [Unreleased]
+### Added
+- option to set custom httpsAgent for axios requests
 
 ## [0.3.0] - 2026-06-22
 ### Changed
-Update starkbank-ecdsa to v1.2.0
+- starkbank-ecdsa to v1.2.0
 
 ## [0.2.0] - 2025-10-07
 ### Added

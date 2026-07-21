@@ -3,6 +3,7 @@ exports.version = '0.3.0';
 exports.cache = {};
 exports.user = null;
 exports.language = "en-US";
+exports.httpsAgent = null;
 
 exports.setUser = function (user) {
     exports.user = user;
@@ -22,6 +23,14 @@ exports.setLanguage = function (language) {
 
 exports.getLanguage = function () {
     return exports.language
+}
+
+exports.setHttpsAgent = function (httpsAgent) {
+    exports.httpsAgent = httpsAgent;
+}
+
+exports.getHttpsAgent = function () {
+    return exports.httpsAgent;
 }
 
 // Modules
