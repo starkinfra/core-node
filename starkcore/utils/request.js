@@ -63,6 +63,10 @@ function preProcess(host, sdkVersion, user, method, path, payload, query, versio
     
     options['url'] = url
 
+    if (stark.httpsAgent) {
+        options['httpsAgent'] = stark.httpsAgent;
+    }
+
     return options
 }
 
