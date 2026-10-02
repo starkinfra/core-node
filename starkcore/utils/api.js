@@ -36,6 +36,9 @@ exports.lastNamePlural = function (resource) {
     if (lastName.endsWith('y') && !lastName.endsWith('ey')) {
         return `${lastName.slice(0, -1)}ies`;
     }
+    if (lastName.endsWith('ch') || lastName.endsWith('sh') || lastName.endsWith('x')) {
+        return `${lastName}es`;
+    }
     return `${lastName}s`;
 };
 
