@@ -14,6 +14,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 ## [Unreleased]
 ### Fixed
 - plural of resource names ending in "ch", "sh" or "x", which now take "es" (speech becomes speeches)
+- postSingle repeating the entity fields in the query string, which made large payloads fail at the gateway (HTTP 400, 502 or 413); the entity now travels only in the body, as in core-python
 
 ## [0.4.0] - 2026-07-21
 ### Added
