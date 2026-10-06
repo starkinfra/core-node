@@ -189,8 +189,8 @@ exports.postMulti = async function (sdkVersion, host, apiVersion, user, resource
     });
 };
 
-exports.postSingle = async function (sdkVersion, host, apiVersion, user, resource, language, timeout, query) {
-    let payload = Object.assign(new resource['class']({}), query);
+exports.postSingle = async function (sdkVersion, host, apiVersion, user, resource, language, timeout, entity) {
+    let payload = Object.assign(new resource['class']({}), entity);
     api.removeNullKeys(payload);
     response = await fetch(
         host,
@@ -199,7 +199,7 @@ exports.postSingle = async function (sdkVersion, host, apiVersion, user, resourc
         'POST',
         `${api.endpoint(resource['name'])}`,
         payload,
-        query,
+        null,
         apiVersion,
         language,
         timeout
