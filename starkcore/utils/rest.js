@@ -238,6 +238,35 @@ exports.putMulti = async function (sdkVersion, host, apiVersion, user, resource,
     return newList;
 }
 
+exports.patchMulti = async function (sdkVersion, host, apiVersion, user, resource, entities, language, timeout, query) {
+    let names = api.lastNamePlural(resource['name'])
+    for (let entity of entities) {
+        api.removeNullKeys(entity);
+    }
+    let payload = {};
+    payload[names] = entities;
+    response = await fetch(
+        host,
+        sdkVersion,
+        user,
+        'PATCH',
+        `${api.endpoint(resource['name'])}`,
+        payload,
+        query,
+        apiVersion,
+        language,
+        timeout
+    );
+    let json = response.json();
+    let list = json[api.lastNamePlural(resource['name'])];
+    let newList = [];
+    for (let entity of list) {
+        let newResource = new resource['class'](entity);
+        newList.push(Object.assign(newResource, entity));
+    }
+    return newList;
+}
+
 exports.postSubResource = async function (sdkVersion, host, apiVersion, user, id, subResource, resource, payload, language, timeout) {
     response = await fetch(
         host,
